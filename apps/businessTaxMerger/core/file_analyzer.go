@@ -21,8 +21,9 @@ func AnalyzeFiles(txtFiles []string) ([]*TxtFileInfo, error) {
 
 	for i, file := range txtFiles {
 		wg.Add(1)
+		// 並行處理
 		go func(index int, filePath string) {
-			defer wg.Done()
+			defer wg.Done() // 函式結束時自動執行
 
 			lineCount, err := countFileLines(filePath)
 			if err != nil {
