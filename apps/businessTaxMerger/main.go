@@ -15,8 +15,15 @@ func main() {
 	continueProgram := true
 
 	for continueProgram {
-		clearScreen()
-		printHeader()
+		// clearScreen()
+		fmt.Print("\033[H\033[2J")
+		// printHeader()
+		fmt.Println("╔══════════════════════════════════════════════════════════╗")
+		fmt.Println("║            營業人進銷項資料檔合併工具 v2.0 (Go)          ║")
+		fmt.Println("║                                                          ║")
+		fmt.Println("║    流程：選擇資料夾 → 分析 TXT → 合併 → 匯出 Excel       ║")
+		fmt.Println("╚══════════════════════════════════════════════════════════╝")
+		fmt.Println()
 
 		// Step 1: 選擇資料夾
 		folderPath, txtFiles, err := selectFolderAndFiles()
@@ -126,16 +133,6 @@ func main() {
 	bufio.NewReader(os.Stdin).ReadBytes('\n')
 }
 
-// printHeader 印出標題
-func printHeader() {
-	fmt.Println("╔══════════════════════════════════════════════════════════╗")
-	fmt.Println("║            營業人進銷項資料檔合併工具 v2.0 (Go)          ║")
-	fmt.Println("║                                                          ║")
-	fmt.Println("║    流程：選擇資料夾 → 分析 TXT → 合併 → 匯出 Excel       ║")
-	fmt.Println("╚══════════════════════════════════════════════════════════╝")
-	fmt.Println()
-}
-
 // selectFolderAndFiles 選擇資料夾並取得 TXT 檔案
 func selectFolderAndFiles() (string, []string, error) {
 	reader := bufio.NewReader(os.Stdin)
@@ -228,9 +225,4 @@ func confirmYes() bool {
 	response, _ := reader.ReadString('\n')
 	response = strings.ToLower(strings.TrimSpace(response))
 	return response == "y" || response == "yes"
-}
-
-// clearScreen 清除螢幕（跨平台）
-func clearScreen() {
-	fmt.Print("\033[H\033[2J")
 }
